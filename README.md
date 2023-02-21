@@ -1,14 +1,12 @@
-# Power Flow Card
+# System Energy Flow Card (by Neuvidor)
 
-[![hacs_badge](https://img.shields.io/badge/HACS-Default-41BDF5.svg?style=flat-square)](https://github.com/hacs/integration)
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/ulic75/power-flow-card?style=flat-square)
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/ulic75/power-flow-card/CI?style=flat-square)
-![GitHub all releases](https://img.shields.io/github/downloads/ulic75/power-flow-card/total?style=flat-square)
-[![ko-fi support](https://img.shields.io/badge/support-me-ff5e5b?style=flat-square&logo=ko-fi)](https://ko-fi.com/ulic75)
+[![hacs_badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://github.com/hacs/integration)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/Neuvidor/system-energy-flow-card?style=flat-square)
+![GitHub all releases](https://img.shields.io/github/downloads/neuvidor/system-energy-flow-card/total?style=flat-square)
 
 ## Goal/Scope
 
-Display current power, gas, and water usage in a display that matches the the official Energy Distribution card included with [Home Assistant](https://home-assistant.io/) as much as possible. As such, additional features that fall outside of that scope will not be added.
+Display current energy, gas, and water usage in a display that matches the the official Energy Distribution card included with [Home Assistant](https://home-assistant.io/) as much as possible. As such, additional features that fall outside of that scope will not be added.
 
 ![screenshot](https://user-images.githubusercontent.com/5641964/202307818-4fb8923e-7fea-451f-bb5a-c840cfcc2dae.png)
 
@@ -19,31 +17,6 @@ Display current power, gas, and water usage in a display that matches the the of
 This card is available in [HACS](https://hacs.xyz/) (Home Assistant Community Store).
 <small>_HACS is a third party community store and is not included in Home Assistant out of the box._</small>
 
-### Manual install
-
-1. Download and copy `power-flow-card.js` from the [latest release](https://github.com/ulic75/power-flow-card/releases/latest) into your `config/www` directory.
-
-2. Add the resource reference as decribed below.
-
-### Add resource reference
-
-If you configure Dashboards via YAML, add a reference to `power-flow-card.js` inside your `configuration.yaml`:
-
-```yaml
-resources:
-  - url: /local/power-flow-card.js
-    type: module
-```
-
-Else, if you prefer the graphical editor, use the menu to add the resource:
-
-1. Make sure, advanced mode is enabled in your user profile (click on your user name to get there)
-2. Navigate to Settings -> Dashboards
-3. Click three dot icon
-4. Select Resources
-5. Hit (+ ADD RESOURCE) icon
-6. Enter URL `/local/power-flow-card.js` and select type "JavaScript Module".
-   (Use `/hacsfiles/power-flow-card/power-flow-card.js` and select "JavaScript Module" for HACS install if HACS didn't do it already)
 
 ## Using the card
 
@@ -56,13 +29,13 @@ I recommend looking at the [Example usage section](#example-usage) to understand
 
 | Name              | Type     |   Default    | Description                                                                                                                                                                  |
 | ----------------- | -------- | :----------: | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| type              | `string` | **required** | `custom:power-flow-card`.                                                                                                                                                    |
+| type              | `string` | **required** | `custom:system-energy-flow-card`.                                                                                                                                                    |
 | entities          | `object` | **required** | One or more sensor entities, see [entities object](#entities-object) for additional entity options.                                                                          |
 | title             | `string` |              | Shows a title at the top of the card.                                                                                                                                        |
 | dashboard_link    | `string` |              | Shows a link to an Energy Dashboard. Should be a url path to location of your choice. If you wanted to link to the built-in dashboard you would enter `/energy` for example. |
 | inverted_entities | `string` |              | Comma seperated list of entities that should be inverted (negative for consumption and positive for production). See [example usage](#inverted-entities-example).            |
-| kw_decimals       | `number` |      1       | Number of decimals rounded to when kilowatts are displayed.                                                                                                                  |
-| w_decimals        | `number` |      1       | Number of decimals rounded to when watts are displayed.                                                                                                                      |
+| kwh_decimals       | `number` |      1       | Number of decimals rounded to when kilowatts per hour are displayed.                                                                                                                  |
+| wh_decimals        | `number` |      1       | Number of decimals rounded to when watts per hour are displayed.                                                                                                                      |
 | min_flow_rate     | `number` |     .75      | Represents the fastest amount of time in seconds for a flow dot to travel from one end to the other, see [flow formula](#flow-formula).                                      |
 | max_flow_rate     | `number` |      6       | Represents the slowest amount of time in seconds for a flow dot to travel from one end to the other, see [flow formula](#flow-formula).                                      |
 | watt_threshold    | `number` |      0       | The number of watts to display before converting to and displaying kilowatts. Setting of 0 will always display in kilowatts.                                                 |
@@ -96,7 +69,7 @@ Can be use with either Grid or Battery configuration. The same `unit_of_measurem
 Using combined entities for grid, battery and solor that support positive state values for consumption and negative state values for production.
 
 ```yaml
-type: custom:power-flow-card
+type: custom:system-energy-flow-card
 entities:
   battery: sensor.battery_in_out
   battery_charge: sensor.battery_percent
@@ -109,7 +82,7 @@ entities:
 Using combined entites as above but where the battery and grid entities are inverted (negative = consumption and positive = production).
 
 ```yaml
-type: custom:power-flow-card
+type: custom:system-energy-flow-card
 entities:
   battery: sensor.battery_in_out
   battery_charge: sensor.battery_percent
@@ -123,7 +96,7 @@ inverted_entities: battery, grid
 Using split entities for grid and battery where each consumption and production entity state has a positive value.
 
 ```yaml
-type: custom:power-flow-card
+type: custom:system-energy-flow-card
 entities:
   battery:
     consumption: sensor.battery_out

@@ -19,7 +19,7 @@ import { formatNumber, HomeAssistant } from "custom-card-helpers";
 import { css, html, LitElement, svg, TemplateResult } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
-import { PowerFlowCardConfig } from "./power-flow-card-config.js";
+import { SystemEnergyFlowCardConfig } from "./system-energy-flow-card-config.js";
 import {
   coerceNumber,
   coerceStringArray,
@@ -30,15 +30,15 @@ import { EntityType } from "./type.js";
 import { logError } from "./logging.js";
 
 const CIRCLE_CIRCUMFERENCE = 238.76104;
-const KW_DECIMALS = 1;
+const KWH_DECIMALS = 1;
 const MAX_FLOW_RATE = 6;
 const MIN_FLOW_RATE = 0.75;
-const W_DECIMALS = 1;
+const WH_DECIMALS = 1;
 
-@customElement("power-flow-card")
-export class PowerFlowCard extends LitElement {
+@customElement("system-energy-flow-card")
+export class SystemEnergyFlowCard extends LitElement {
   @property({ attribute: false }) public hass!: HomeAssistant;
-  @state() private _config = {} as PowerFlowCardConfig;
+  @state() private _config = {} as SystemEnergyFlowCardConfig;
 
   @query("#battery-grid-flow") batteryGridFlow?: SVGSVGElement;
   @query("#battery-home-flow") batteryToHomeFlow?: SVGSVGElement;
@@ -47,7 +47,7 @@ export class PowerFlowCard extends LitElement {
   @query("#solar-grid-flow") solarToGridFlow?: SVGSVGElement;
   @query("#solar-home-flow") solarToHomeFlow?: SVGSVGElement;
 
-  setConfig(config: PowerFlowCardConfig): void {
+  setConfig(config: SystemEnergyFlowCardConfig): void {
     if (
       !config.entities ||
       (!config.entities.battery &&
@@ -61,10 +61,10 @@ export class PowerFlowCard extends LitElement {
     this._config = {
       ...config,
       inverted_entities: coerceStringArray(config.inverted_entities, ","),
-      kw_decimals: coerceNumber(config.kw_decimals, KW_DECIMALS),
+      KWH_DECIMALS: coerceNumber(config.KWH_DECIMALS, KWH_DECIMALS),
       min_flow_rate: coerceNumber(config.min_flow_rate, MIN_FLOW_RATE),
       max_flow_rate: coerceNumber(config.max_flow_rate, MAX_FLOW_RATE),
-      w_decimals: coerceNumber(config.w_decimals, W_DECIMALS),
+      WH_DECIMALS: coerceNumber(config.WH_DECIMALS, WH_DECIMALS),
       watt_threshold: coerceNumber(config.watt_threshold),
     };
   }
@@ -106,15 +106,15 @@ export class PowerFlowCard extends LitElement {
     }
     const stateObj = this.hass.states[entity];
     const value = coerceNumber(stateObj.state);
-    if (stateObj.attributes.unit_of_measurement === "W") return value;
+    if (stateObj.attributes.unit_of_measurement === "Wh") return value;
     return value * 1000;
   };
 
   private displayValue = (value: number | null) => {
     if (value === null) return 0;
     return value >= this._config!.watt_threshold
-      ? `${round(value / 1000, this._config!.kw_decimals)} kW`
-      : `${round(value, this._config!.w_decimals)} W`;
+      ? `${round(value / 1000, this._config!.KWH_DECIMALS)} kW`
+      : `${round(value, this._config!.WH_DECIMALS)} W`;
   };
 
   protected render(): TemplateResult {
@@ -1112,14 +1112,14 @@ const windowWithCards = window as unknown as Window & {
 };
 windowWithCards.customCards = windowWithCards.customCards || [];
 windowWithCards.customCards.push({
-  type: "power-flow-card",
-  name: "Power Flow Card",
+  type: "system-energy-flow-card",
+  name: "System Energy Flow Card",
   description:
-    "A power distribution card inspired by the official Energy Distribution card for Home Assistant",
+    "A energy distribution card inspired by the official Energy Distribution card for Home Assistant",
 });
 
 declare global {
   interface HTMLElementTagNameMap {
-    "power-flow-card": PowerFlowCard;
+    "system-energy-flow-card": SystemEnergyFlowCard;
   }
 }
