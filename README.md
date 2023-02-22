@@ -1,4 +1,4 @@
-# System Energy Flow Card (by Neuvidor)
+# System Energy Flow Card
 
 [![hacs_badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://github.com/hacs/integration)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/Neuvidor/system-energy-flow-card?style=flat-square)
