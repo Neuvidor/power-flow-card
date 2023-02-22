@@ -4,12 +4,13 @@
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/Neuvidor/system-energy-flow-card?style=flat-square)
 ![GitHub all releases](https://img.shields.io/github/downloads/neuvidor/system-energy-flow-card/total?style=flat-square)
 
-## Goal/Scope
+# Goal/Scope
 
 Display current energy, gas, and water usage in a display that matches the official Energy Distribution card included with [Home Assistant](https://home-assistant.io/) as much as possible. It will allow you to display a different Energy Distribution card compared to the energy dashboard. As such, additional features that fall outside of that scope will not be added.
+
 ![image](https://user-images.githubusercontent.com/64861851/220486892-4aa7d365-1944-4916-b027-366bf62c2034.png)
 
-## Install
+# Install
 
 ### HACS (recommended)
 
@@ -17,7 +18,7 @@ This card is available in [HACS](https://hacs.xyz/) (Home Assistant Community St
 <small>_HACS is a third party community store and is not included in Home Assistant out of the box._</small>
 
 
-## Using the card
+# Using the card
 
 I recommend looking at the [Example usage section](#example-usage) to understand the basics to configure this card.
 (also) pay attention to the **required** options mentioned below.
@@ -124,6 +125,6 @@ I'm not 100% happy with this. I'd prefer to see the dots travel slower when flow
 
 ## Credits
 
-- [HA Energy Distribution Card](https://www.home-assistant.io//dashboards/energy/#energy-distribution)
-- [@angular/cdk](https://github.com/angular/components/tree/main/src/cdk)
-- [Jack Moore](https://www.jacklmoore.com/notes/rounding-in-javascript/)
+- [@ulic75](https://github.com/ulic75/power-flow-card)
+
+
