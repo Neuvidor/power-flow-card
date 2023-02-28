@@ -8,7 +8,9 @@
 
 Display current energy, gas, and water usage in a display that matches the official Energy Distribution card included with [Home Assistant](https://home-assistant.io/) as much as possible. It will allow you to display a different Energy Distribution card compared to the energy dashboard. As such, additional features that fall outside of that scope will not be added.
 
-![image](https://user-images.githubusercontent.com/64861851/220486892-4aa7d365-1944-4916-b027-366bf62c2034.png)
+
+![image](https://user-images.githubusercontent.com/64861851/221838915-393e4372-cd6a-46ec-a66f-2d900e5c5e5a.png)
+
 
 # Install
 
