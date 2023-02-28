@@ -14,8 +14,8 @@ Display current energy, gas, and water usage in a display that matches the offic
 
 ### HACS (recommended)
 
-This card is available in [HACS](https://hacs.xyz/) (Home Assistant Community Store).
-<small>_HACS is a third party community store and is not included in Home Assistant out of the box._</small>
+You can install this custom component using HACS by adding a custom repository.
+HACS > Integrations > Explore & Add Repositories > System Energy Flow Card > Install this repository
 
 
 # Using the card
@@ -34,15 +34,15 @@ I recommend looking at the [Example usage section](#example-usage) to understand
 | title             | `string` |              | Shows a title at the top of the card.                                                                                                                                        |
 | dashboard_link    | `string` |              | Shows a link to an Energy Dashboard. Should be a url path to location of your choice. If you wanted to link to the built-in dashboard you would enter `/energy` for example. |
 | inverted_entities | `string` |              | Comma seperated list of entities that should be inverted (negative for consumption and positive for production). See [example usage](#inverted-entities-example).            |
-| kwh_decimals       | `number` |      1       | Number of decimals rounded to when kilowatts per hour are displayed.                                                                                                                  |
-| wh_decimals        | `number` |      1       | Number of decimals rounded to when watts per hour are displayed.                                                                                                                      |
+| kwh_decimals      | `number` |      1       | Number of decimals rounded to when kilowatts per hour are displayed.                                                                                                                  |
+| wh_decimals       | `number` |      1       | Number of decimals rounded to when watts per hour are displayed.                                                                                                                      |
 | min_flow_rate     | `number` |     .75      | Represents the fastest amount of time in seconds for a flow dot to travel from one end to the other, see [flow formula](#flow-formula).                                      |
 | max_flow_rate     | `number` |      6       | Represents the slowest amount of time in seconds for a flow dot to travel from one end to the other, see [flow formula](#flow-formula).                                      |
 | watt_threshold    | `number` |      0       | The number of watts to display before converting to and displaying kilowatts. Setting of 0 will always display in kilowatts.                                                 |
 
 #### Entities object
 
-At least one of _grid_, _battery_, or _solar_ is required. All entites (except _battery_charge_) should have a `unit_of_measurement` attribute of W(watts) or kW(kilowatts).
+At least one of _grid_, _battery_, or _solar_ is required. All entites (except _battery_charge_) should have a `unit_of_measurement` attribute of Wh(watts per hour) or kWh(kilowatts per hour).
 
 | Name           | Type                | Description                                                                                                                                                                                                     |
 | -------------- | :------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -120,8 +120,6 @@ max - (value / totalLines) * (max - min);
 // totalLines = gridConsumption + solarConsumption + solarToBattery +
 //   solarToGrid + batteryConsumption + batteryFromGrid + batteryToGrid
 ```
-
-I'm not 100% happy with this. I'd prefer to see the dots travel slower when flow is low, but faster when flow is high. For example if the only flow is Grid to Home, I'd like to see the dot move faster if the flow is 15kW, but slower if it's only 2kW. Right now the speed would be the same. If you have a formula you'd like to propose please submit a PR.
 
 ## Credits
 
