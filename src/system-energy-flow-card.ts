@@ -113,8 +113,8 @@ export class SystemEnergyFlowCard extends LitElement {
   private displayValue = (value: number | null) => {
     if (value === null) return 0;
     return value >= this._config!.watt_threshold
-      ? `${round(value / 1000, this._config!.KWH_DECIMALS)} kW`
-      : `${round(value, this._config!.WH_DECIMALS)} W`;
+      ? `${round(value / 1000, this._config!.KWH_DECIMALS)} kWh`
+      : `${round(value, this._config!.WH_DECIMALS)} Wh`;
   };
 
   protected render(): TemplateResult {

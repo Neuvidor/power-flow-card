@@ -12,9 +12,9 @@ export interface SystemEnergyFlowCardConfig extends LovelaceCardConfig {
   };
   dashboard_link?: string;
   inverted_entities: string | string[];
-  kw_decimals: number;
+  kwh_decimals: number;
   min_flow_rate: number;
   max_flow_rate: number;
-  w_decimals: number;
+  wh_decimals: number;
   watt_threshold: number;
 }
